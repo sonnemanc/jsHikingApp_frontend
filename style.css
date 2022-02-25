@@ -1,0 +1,29 @@
+.container {
+    display: grid;
+    background-color: brown;
+    width: 90%;
+    height: 950px;  
+    grid-template-columns: 60% 40%;
+    grid-gap: 0px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .left {
+    background: url(images/San_Diego_Map.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  
+  .right {
+    background-color: orange;
+  }
+
+  .dot {
+    height: 25px;
+    width: 25px;
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+    display: block;
+  }
