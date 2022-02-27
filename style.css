@@ -29,6 +29,11 @@
     display: block;
 }
 
+.viewing {
+    transform: scalr(1.1);
+    border-color: yellowgreen;
+}
+
 #Hike1 {
     position: relative;
     top: 395px;
