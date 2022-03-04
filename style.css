@@ -75,3 +75,27 @@
     top: 290px;
     left: 425px;
 }
+
+#name {
+    font: 35px Arial;
+}
+
+#difficulty {
+    font: 25px Arial;
+}
+
+#distance {
+    font: 25px Arial;
+}
+
+#best_season {
+    font: 25px Arial;
+}
+
+#trail_use {
+    font: 25px Arial;
+}
+
+#notes {
+    font: 20px Arial;
+}

@@ -16,8 +16,14 @@ function getHikes() {
   })
 }
 
-function fillHikeBox() {
+function fillHikeBox(i) {
   //this function will use .innerHTML to fill each element with the current selected Hike from addListener()
+  document.querySelector('#name').innerText = hikes[i].attributes.name
+  document.querySelector('#difficulty').innerText = 'Difficulty: ' + hikes[i].attributes.difficulty
+  document.querySelector('#distance').innerText = 'Distance: ' + hikes[i].attributes.distance
+  document.querySelector('#best_season').innerText = 'Best Season: ' + hikes[i].attributes.best_season
+  document.querySelector('#trail_use').innerText = 'Trail Use: ' + hikes[i].attributes.trail_use
+  document.querySelector('#notes').innerText = 'Notes: ' + hikes[i].attributes.notes
 }
 
 function addListener() {
@@ -25,9 +31,9 @@ function addListener() {
   const dotsArr = Array.from(dots);
   for (let i = 0; i < dotsArr.length; i++) {
     const element = dotsArr[i]
-    element.addEventListener('click', function() {
-      console.log(hikes[i].attributes.name)
-    })
+    element.addEventListener( 'click', function() {
+      fillHikeBox(i)
+    } )
   }
 }
 
