@@ -3,11 +3,9 @@
 // Url for fetch function
 let hikeUrl = "http://localhost:3000/api/v1/hikes"
 
-//function to fetch hikes array
-let fetchHikes = () => fetch(hikeUrl).then(response => response.json())
-
+//array to keep hikes once fetched
 let hikes = []
-
+//
 function getHikes() {
   fetch(hikeUrl)
   .then(response => response.json())
@@ -18,6 +16,9 @@ function getHikes() {
   })
 }
 
+function fillHikeBox() {
+  //this function will use .innerHTML to fill each element with the current selected Hike from addListener()
+}
 
 function addListener() {
   const dots = document.querySelectorAll('.dot');
