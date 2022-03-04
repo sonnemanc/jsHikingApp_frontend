@@ -5,6 +5,7 @@ let hikeUrl = "http://localhost:3000/api/v1/hikes"
 
 //array to keep hikes once fetched
 let hikes = []
+let comments = []
 //
 function getHikes() {
   fetch(hikeUrl)
@@ -26,6 +27,15 @@ function fillHikeBox(i) {
   document.querySelector('#notes').innerText = 'Notes: ' + hikes[i].attributes.notes
 }
 
+function fillCommentBox(i) {
+  if (hikes[i].attributes.comments.length === 0) {
+    document.querySelector('.hikeComments').innerText = `There aren't any comments for this hike yet!`
+  } else {hikes[i].attributes.comments.forEach(comment => {
+    document.querySelector('.hikeComments').innerText = comment.user_name + ' said ' + comment.content
+  })}
+}
+
+
 function addListener() {
   const dots = document.querySelectorAll('.dot');
   const dotsArr = Array.from(dots);
@@ -33,6 +43,7 @@ function addListener() {
     const element = dotsArr[i]
     element.addEventListener( 'click', function() {
       fillHikeBox(i)
+      fillCommentBox(i)
     } )
   }
 }
@@ -44,4 +55,3 @@ window.addEventListener('DOMContentLoaded', () => {
   getHikes()
   addListener()
 })
-
