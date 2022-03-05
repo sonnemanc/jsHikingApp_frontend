@@ -64,6 +64,8 @@ function fillCommentBox(i) {
 
   
   } else {
+    //this is here to clear the empty container message.
+    document.querySelector('.hikeComments').innerText = ``
   //if there are comments I want them to be in a list
     document.querySelector('.hikeComments').appendChild(ul);
 
