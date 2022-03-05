@@ -105,12 +105,14 @@ function patchFetch(user_name, content, hike_id) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(bodyData)
   })
-  .then(response => console.log(response) )
-  .then(comment => {
-    console.log(comment)
-    
+  .then(response => response.json() )
+  .then(hike => {
+    console.log(hike.data.attributes.comments)
+    hike.data.attributes.comments.forEach(comment => {
+     //fillCommentBox()
   })
 
+})
 }
 
 
