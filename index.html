@@ -47,8 +47,7 @@
             <div id="trail_use"></div><br>
             <div id="notes"></div><br><br>
         </div>
-        <div class="hikeComments">
-        </div>
+
         <form class="add-comment-form">
             <h3>Leave a Comment!</h3>
 
@@ -59,22 +58,18 @@
               placeholder="Please enter your username."
               class="input-text"
             />
+            <br>
+            <textarea id='input-description' name="description" rows="4" cols="40"
+            value="" placeholder="Enter your comment here..."></textarea>
             <br />
-            <input
-              type="text"
-              name="content"
-              value=""
-              placeholder="Enter your comment here..."
-              class="text-box"
-            />
-            <br />
-            <input
-              type="submit"
-              name="submit"
-              value="Post"
-              class="submit"
-            />
+            <input id='create-button' type="submit" name="submit" value="Post" class="submit">
         </form>
+
+        <br><br>
+
+        <div class="hikeComments">
+        </div>
+
     </div>
   </div>
 
