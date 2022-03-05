@@ -107,9 +107,15 @@ function patchFetch(user_name, content, hike_id) {
   })
   .then(response => response.json() )
   .then(hike => {
-    console.log(hike.data.attributes.comments)
+    const ul = document.createElement('ul');
+    ul.setAttribute('id', 'commentList');
+    document.querySelector('.hikeComments').innerText = ``
+    document.querySelector('.hikeComments').appendChild(ul);
     hike.data.attributes.comments.forEach(comment => {
-     //fillCommentBox()
+        let li = document.createElement('li');
+        li.setAttribute('id', 'comment')
+        document.querySelector('#commentList').appendChild(li);
+        li.innerText = comment.user_name + ' said: ' + comment.content
   })
 
 })
