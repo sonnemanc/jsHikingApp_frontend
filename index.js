@@ -94,6 +94,7 @@ function createFormHandler(e) {
   const content = document.querySelector('#input-description').value
   const hike_id = currentHikeId()
   patchFetch(user_name, content, hike_id )
+  document.querySelector('.add-comment-form').reset()
 }
 
 function patchFetch(user_name, content, hike_id) {
