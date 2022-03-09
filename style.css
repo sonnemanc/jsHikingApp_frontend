@@ -107,3 +107,7 @@
 .add-comment-form {
     display: none;
 }
+
+.dot:hover {
+    background-color: yellow;
+}

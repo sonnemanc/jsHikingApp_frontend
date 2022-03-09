@@ -25,6 +25,7 @@ class Hike {
 let hikes = []
 
 function getHikes() {
+  hikes = []
   fetch(hikeUrl)
   .then(response => response.json())
   .then(hike => {
@@ -32,6 +33,10 @@ function getHikes() {
       let newHike = new Hike(hike, hike.attributes)
     })
   })
+}
+
+function currentHikeId() {
+  return document.querySelector('#name').innerText[0]
 }
 
 function fillHikeBox(i) {
@@ -84,9 +89,7 @@ function addMapButtons() {
   }
 }
 
-function currentHikeId() {
-  return document.querySelector('#name').innerText[0]
-}
+
 
 function createFormHandler(e) {
   e.preventDefault()
@@ -108,6 +111,7 @@ function patchFetch(user_name, content, hike_id) {
   })
   .then(response => response.json() )
   .then(hike => {
+    hikes[currentHikeId() - 1].comments = []    //this empties the comments array for the specific hike, so that we can update it below
     const ul = document.createElement('ul');
     ul.setAttribute('id', 'commentList');
     document.querySelector('.hikeComments').innerText = ``
@@ -117,16 +121,9 @@ function patchFetch(user_name, content, hike_id) {
         li.setAttribute('id', 'comment')
         document.querySelector('#commentList').appendChild(li);
         li.innerText = comment.user_name + ' said: ' + comment.content
+        hikes[currentHikeId() - 1].comments.push(comment)    //this refills the emptied comments array for the highlighted hike object
   })
+
 
 })
 }
-
-
-//window.addEventListener('DOMContentLoaded', () => {
-//  getHikes()
-//  addListener()
-//
-//  const createCommentForm = document.querySelector('.add-comment-form')
-//  createCommentForm.addEventListener('submit', (e) => createFormHandler(e) )
-//})
