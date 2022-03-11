@@ -4,8 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM is Loaded');
   getHikes()
   addMapButtons()
+
   const createCommentForm = document.querySelector('.add-comment-form')
   createCommentForm.addEventListener('submit', (e) => createFormHandler(e) )
+
+  //const deleteBtn = document.querySelector('')
+
 })
 
 class Hike {
@@ -53,28 +57,24 @@ function displayedHike(hike) {
   return hike.id === currentHikeId() 
 }
 
+function addComment(comment) {
+  let li = document.createElement('li');
+  li.setAttribute('id', 'comment');
+  document.querySelector('#commentList').appendChild(li);
+  li.innerText = comment.user_name + ' said: ' + comment.content
+}
+
 function fillCommentBox() {
-  let currentHike = hikes.find(displayedHike)
-        //this unhides the comment form
-  document.querySelector('.add-comment-form').style.display = 'inline'
-        //this is to keep track of the current hike in case I need to call that when creating a new comment later
-  const ul = document.createElement('ul');
-  ul.setAttribute('id', 'commentList');
-        //if no comments display a message
+  let currentHike = hikes.find(displayedHike)                                //this is to keep track of the current hike in case I need to call that when creating a new comment later
+  document.querySelector('.add-comment-form').style.display = 'inline'       //this unhides the comment form
   if (currentHike.comments.length === 0) {
-    document.querySelector('.hikeComments').innerText = `There aren't any comments for this hike yet!`
+    document.querySelector('#commentList').innerText = `There aren't any comments for this hike yet!`      //if no comments display a message
   } else {
-        //this is here to clear the empty container message.
-    document.querySelector('.hikeComments').innerText = ``
-        //if there are comments this puts them in a list
-    document.querySelector('.hikeComments').appendChild(ul);
-        //iterate through each comment, appending a new li element to the created ul element
-    currentHike.comments.forEach(comment => {
-      let li = document.createElement('li');
-      li.setAttribute('id', 'comment')
-      document.querySelector('#commentList').appendChild(li);
-      li.innerText = comment.user_name + ' said: ' + comment.content
-  })}
+      document.querySelector('#commentList').innerText = ``                     //this clears the list between clicks!
+      currentHike.comments.forEach(comment => {                                 //iterate through each comment, appending a new li element to the created ul element
+        addComment(comment)
+      })
+    }
 }
 
 function addMapButtons() {
@@ -88,8 +88,6 @@ function addMapButtons() {
     } )
   }
 }
-
-
 
 function createFormHandler(e) {
   e.preventDefault()
@@ -112,18 +110,12 @@ function patchFetch(user_name, content, hike_id) {
   .then(response => response.json() )
   .then(hike => {
     hikes[currentHikeId() - 1].comments = []    //this empties the comments array for the specific hike, so that we can update it below
-    const ul = document.createElement('ul');
-    ul.setAttribute('id', 'commentList');
-    document.querySelector('.hikeComments').innerText = ``
-    document.querySelector('.hikeComments').appendChild(ul);
+    document.querySelector('#commentList').innerText = ``
     hike.data.attributes.comments.forEach(comment => {
-        let li = document.createElement('li');
-        li.setAttribute('id', 'comment')
-        document.querySelector('#commentList').appendChild(li);
-        li.innerText = comment.user_name + ' said: ' + comment.content
+      addComment(comment)
         hikes[currentHikeId() - 1].comments.push(comment)    //this refills the emptied comments array for the highlighted hike object
   })
-
-
 })
 }
+
+function deleteComment() {}
