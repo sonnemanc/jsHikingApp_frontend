@@ -55,23 +55,24 @@ function displayedHike(hike) {
 
 function addComment(comment) {
   let li = document.createElement('li');
-  let btn = document.createElement('button');
-  btn.setAttribute('id', 'deleteBtn');
-  btn.innerText = 'delete';
   li.setAttribute('id', 'comment');
   document.querySelector('#commentList').appendChild(li);
   li.innerText = comment.user_name + ' said: ' + comment.content + ' '
-  li.appendChild(btn)
+  addDeleteButton(li, comment)
 }
 
-function addDeleteButtons() {
-  let deleteBtns = document.querySelectorAll('#deleteBtn')
-  deleteBtns.forEach(button => console.log(button))
+function addDeleteButton(li, comment) {
+  let btn = document.createElement('button');
+  btn.setAttribute('id', 'deleteBtn');
+  btn.innerText = 'delete';
+  li.appendChild(btn)
+  btn.addEventListener('click', function() {
+    console.log(comment)
+  } )
 }
 
 function fillCommentBox() {
   let currentHike = hikes.find(displayedHike)
-  
   document.querySelector('.add-comment-form').style.display = 'inline'
   if (currentHike.comments.length === 0) {
     document.querySelector('#commentList').innerText = `There aren't any comments for this hike yet!`
@@ -80,11 +81,9 @@ function fillCommentBox() {
       currentHike.comments.forEach(comment => {
         addComment(comment)
       })
-      addDeleteButtons()
+      
     }
 }
-
-
 
 function addMapButtons() {
   const dots = document.querySelectorAll('.dot');
@@ -107,10 +106,6 @@ function createFormHandler(e) {
   document.querySelector('.add-comment-form').reset()
 }
 
-function deleteFormHandler(e) {
-
-}
-
 function patchFetch(user_name, content, hike_id) {
   const bodyData = {user_name, content, hike_id}
   let patchUrl = hikeUrl + '/' + currentHikeId()
@@ -128,5 +123,3 @@ function patchFetch(user_name, content, hike_id) {
   })
 })
 }
-
-function deleteComment() {}
