@@ -101,19 +101,17 @@ function createFormHandler(e) {
 function patchFetch(user_name, content, hike_id) {
   const bodyData = {user_name, content, hike_id}
   let patchUrl = hikeUrl + '/' + currentHikeId()
-
   fetch(patchUrl, {
     method: 'PATCH',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(bodyData)
-  })
-  .then(response => response.json() )
+  }).then(response => response.json() )
   .then(hike => {
     hikes[currentHikeId() - 1].comments = []    //this empties the comments array for the specific hike, so that we can update it below
     document.querySelector('#commentList').innerText = ``
     hike.data.attributes.comments.forEach(comment => {
       addComment(comment)
-        hikes[currentHikeId() - 1].comments.push(comment)    //this refills the emptied comments array for the highlighted hike object
+      hikes[currentHikeId() - 1].comments.push(comment)    //this refills the emptied comments array for the highlighted hike object
   })
 })
 }
