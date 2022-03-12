@@ -7,9 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const createCommentForm = document.querySelector('.add-comment-form')
   createCommentForm.addEventListener('submit', (e) => createFormHandler(e) )
-
-  //const deleteBtn = document.querySelector('')
-
 })
 
 class Hike {
@@ -44,7 +41,6 @@ function currentHikeId() {
 }
 
 function fillHikeBox(i) {
-  //this function will use .innerHTML to fill each element with the current selected Hike from addListener()
   document.querySelector('#name').innerText = hikes[i].id + '. ' + hikes[i].name
   document.querySelector('#difficulty').innerText = 'Difficulty: ' + hikes[i].difficulty
   document.querySelector('#distance').innerText = 'Distance: ' + hikes[i].distance
@@ -59,23 +55,36 @@ function displayedHike(hike) {
 
 function addComment(comment) {
   let li = document.createElement('li');
+  let btn = document.createElement('button');
+  btn.setAttribute('id', 'deleteBtn');
+  btn.innerText = 'delete';
   li.setAttribute('id', 'comment');
   document.querySelector('#commentList').appendChild(li);
-  li.innerText = comment.user_name + ' said: ' + comment.content
+  li.innerText = comment.user_name + ' said: ' + comment.content + ' '
+  li.appendChild(btn)
+}
+
+function addDeleteButtons() {
+  let deleteBtns = document.querySelectorAll('#deleteBtn')
+  deleteBtns.forEach(button => console.log(button))
 }
 
 function fillCommentBox() {
-  let currentHike = hikes.find(displayedHike)                                //this is to keep track of the current hike in case I need to call that when creating a new comment later
-  document.querySelector('.add-comment-form').style.display = 'inline'       //this unhides the comment form
+  let currentHike = hikes.find(displayedHike)
+  
+  document.querySelector('.add-comment-form').style.display = 'inline'
   if (currentHike.comments.length === 0) {
-    document.querySelector('#commentList').innerText = `There aren't any comments for this hike yet!`      //if no comments display a message
+    document.querySelector('#commentList').innerText = `There aren't any comments for this hike yet!`
   } else {
-      document.querySelector('#commentList').innerText = ``                     //this clears the list between clicks!
-      currentHike.comments.forEach(comment => {                                 //iterate through each comment, appending a new li element to the created ul element
+      document.querySelector('#commentList').innerText = ``
+      currentHike.comments.forEach(comment => {
         addComment(comment)
       })
+      addDeleteButtons()
     }
 }
+
+
 
 function addMapButtons() {
   const dots = document.querySelectorAll('.dot');
@@ -96,6 +105,10 @@ function createFormHandler(e) {
   const hike_id = currentHikeId()
   patchFetch(user_name, content, hike_id )
   document.querySelector('.add-comment-form').reset()
+}
+
+function deleteFormHandler(e) {
+
 }
 
 function patchFetch(user_name, content, hike_id) {
