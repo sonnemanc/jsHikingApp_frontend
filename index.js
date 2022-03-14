@@ -1,4 +1,5 @@
 const hikeUrl = "http://localhost:3000/api/v1/hikes"
+const commentUrl = "http://localhost:3000/api/v1/comments"
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM is Loaded');
@@ -61,15 +62,28 @@ function addComment(comment) {
   addDeleteButton(li, comment)
 }
 
+function deleteComment(comment) {
+  let deleteUrl = commentUrl + '/' + comment.id
+  fetch(deleteUrl, { method: 'Delete' })
+
+  let hikeComments = hikes[currentHikeId() - 1].comments
+  //hikeComments.find(element => element.id === comment.id)
+  commentIndex = hikeComments.indexOf(hikeComments.find(element => element.id === comment.id))
+  hikeComments.splice(commentIndex,1);
+  fillCommentBox()
+}
+
 function addDeleteButton(li, comment) {
   let btn = document.createElement('button');
   btn.setAttribute('id', 'deleteBtn');
   btn.innerText = 'delete';
   li.appendChild(btn)
   btn.addEventListener('click', function() {
-    console.log(comment)
+    deleteComment(comment)
   } )
 }
+
+
 
 function fillCommentBox() {
   let currentHike = hikes.find(displayedHike)
